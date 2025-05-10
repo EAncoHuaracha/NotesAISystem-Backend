@@ -33,6 +33,9 @@ const authenticate = async (req, res, next) => {
 // MongoDB
 const client = new MongoClient(process.env.MONGODB_URI, { maxPoolSize: 5 });
 let mongoReady = client.connect();
+mongoReady.catch((err) => {
+    console.error("MongoDB connection error:", err);
+});
 const getDb = async () => (await mongoReady).db("NotesAI");
 
 // === PROJECTS API ===
